@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../providers/booking_provider.dart';
 import '../../providers/slot_provider.dart';
+import '../../providers/user_provider.dart';
 
 class VenueDetailScreen
     extends StatefulWidget {
@@ -78,16 +80,63 @@ class _VenueDetailScreenState
           final slot =
           provider.slots[index];
 
-          return Card(
-            color:
-            slot.available
-                ? Colors.green
-                : Colors.red,
-            child: Center(
-              child: Text(
-                '${slot.startTime}\n${slot.endTime}',
-                textAlign:
-                TextAlign.center,
+          return InkWell(
+            onTap: slot.available
+                ? () async {
+              final userId =
+              context
+                  .read<UserProvider>()
+                  .userId!;
+
+              final success =
+              await context
+                  .read<BookingProvider>()
+                  .bookSlot(
+                userId: userId,
+                slotId: slot.id,
+              );
+
+              if (!context.mounted) return;
+
+              if (success) {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'Booking Successful',
+                    ),
+                  ),
+                );
+
+                await context
+                    .read<SlotProvider>()
+                    .loadSlots(
+                  widget.venueId,
+                  selectedDate,
+                );
+              } else {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'Slot Already Booked',
+                    ),
+                  ),
+                );
+              }
+            }
+                : null,
+            child: Card(
+              color: slot.available
+                  ? Colors.green
+                  : Colors.red,
+              child: Center(
+                child: Text(
+                  '${slot.startTime}\n${slot.endTime}',
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           );
