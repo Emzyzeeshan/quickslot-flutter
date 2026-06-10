@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../venues/venue_list_screen.dart';
+
 
 class LoginScreen
     extends StatelessWidget {
@@ -48,13 +50,13 @@ class LoginScreen
             ),
             onTap: () {
 
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (_) =>
-              //         //VenueListScreen(),
-              //   ),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) =>
+                      VenueListScreen(),
+                ),
+              );
             },
           );
         },
