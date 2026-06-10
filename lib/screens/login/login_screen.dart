@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/user_provider.dart';
 import '../venues/venue_list_screen.dart';
 
 
@@ -49,7 +51,10 @@ class LoginScreen
               ['name']!,
             ),
             onTap: () {
-
+              context.read<UserProvider>().selectUser(
+                id: users[index]['id']!,
+                name: users[index]['name']!,
+              );
               Navigator.push(
                 context,
                 MaterialPageRoute(
