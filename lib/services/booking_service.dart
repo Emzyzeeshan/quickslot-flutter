@@ -11,7 +11,9 @@ class BookingService {
     required String slotId,
   }) async {
 
-    await dio.post(
+    print('POSTING...');
+
+    final response = await dio.post(
       '${ApiClient.baseUrl}/bookings',
       data: {
         'slotId': slotId,
@@ -22,5 +24,7 @@ class BookingService {
         },
       ),
     );
+
+    print(response.data);
   }
 }
