@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quickslot_flutter/providers/booking_provider.dart';
+import 'package:quickslot_flutter/providers/my_booking_provider.dart';
 import 'package:quickslot_flutter/providers/slot_provider.dart';
 import 'package:quickslot_flutter/providers/user_provider.dart';
 import 'package:quickslot_flutter/screens/login/login_screen.dart';
@@ -23,6 +24,10 @@ void main() {
         ),
         ChangeNotifierProvider(
           create: (_) => BookingProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) =>
+              MyBookingProvider(),
         ),
       ],
       child: const MyApp(),

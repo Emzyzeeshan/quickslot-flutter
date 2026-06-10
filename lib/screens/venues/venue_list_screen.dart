@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/venue_provider.dart';
+import '../bookings/my_bookings_screen.dart';
 import 'venue_detail_screen.dart';
 
 class VenueListScreen extends StatefulWidget {
@@ -34,7 +35,27 @@ class _VenueListScreenState
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Venues'),
+        title: const Text(
+          'Venues',
+        ),
+        actions: [
+
+          IconButton(
+            icon: const Icon(
+              Icons.book_online,
+            ),
+            onPressed: () {
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) =>
+                  const MyBookingsScreen(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: provider.loading
           ? const Center(
